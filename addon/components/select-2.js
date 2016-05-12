@@ -38,7 +38,7 @@ var Select2Component = Ember.Component.extend({
   optionDescriptionPath: 'description',
   placeholder: null,
   multiple: false,
-  allowClear: false,
+  allowClear: true,
   enabled: true,
   query: null,
   typeaheadSearchingText: 'Searching…',
