@@ -36,7 +36,7 @@ var Select2Component = Ember.Component.extend({
   optionLabelSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
-  placeholder: null,
+  placeholder: 'Select',
   multiple: false,
   allowClear: true,
   enabled: true,
