@@ -49,6 +49,9 @@ var Select2Component = Ember.Component.extend({
   maximumInputLength: null,
   valueSeparator: ',',
 
+  //custom attributes
+  shouldDisplayChanges: true,
+
   // internal state
   _hasSelectedMissingItems: false,
   _hasPendingContentPromise: Ember.computed.alias('content.isPending'),
@@ -482,7 +485,8 @@ var Select2Component = Ember.Component.extend({
   valueChanged: function() {
     var self = this,
         value = this.get("value"),
-        optionValuePath = this.get("optionValuePath");
+        optionValuePath = this.get("optionValuePath"),
+        shouldDisplayChanges = this.get('shouldDisplayChanges');
 
     if (Ember.PromiseProxyMixin.detect(value)) {
       // schedule re-setting value after promise is settled
@@ -503,10 +507,18 @@ var Select2Component = Ember.Component.extend({
         // split the value on the specified separator
         value = value.split(this.get("valueSeparator"));
       }
-      this._select.select2("val", value);
+      if (shouldDisplayChanges) {
+        this._select.select2("val", value);
+      } else {
+        this._select.select2("val", null);
+      }
     } else {
       // otherwise set the full object via "data"
-      this._select.select2("data", value);
+      if (shouldDisplayChanges) {
+        this._select.select2("data", value);
+      } else {
+        this._select.select2("val", null);
+      }
     }
   },
 
